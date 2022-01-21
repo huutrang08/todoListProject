@@ -10,13 +10,19 @@ function FHeaderPane(props) {
     const [link,setLink] = useState({
         WorkDateRef: firebase.database().ref('workdates')
       })
+      const [ref,setRef] = useState({
+        WorkDateRef: firebase.database().ref('works')
+      })
     const handleSubmit = ()=>{
-        saveWorkDate();
+        if(props.state.workDateData){
+            saveWorkData(props.state.workDateData.id,work,ref.WorkDateRef)
+        }else{
+            saveWorkDate()
+        }
     }
     function saveWorkDate(){
         console.log('bat dau')
         if(validate(work)){
-            console.log('vao if')
             const key = link.WorkDateRef.push().key
             const newDate = {
                 id:key,
@@ -25,6 +31,7 @@ function FHeaderPane(props) {
             }
             link.WorkDateRef.child(key).update(newDate).then(()=>{
                 console.log('success')
+                saveWorkData(key,work,ref.WorkDateRef)
             }).catch(err=>{
                 console.log(err)
             })
@@ -39,7 +46,8 @@ function FHeaderPane(props) {
        workRef.child(key).push().set(newWork).then(()=>{
            console.log('save work')
            setOpen(false)
-           props.state.refresh()
+           props.setWorkData(newWork)
+           props.refresh(Math.random())
        }).catch(err=>{
            console.log(err)
        })
