@@ -24,9 +24,9 @@ function FRoot(props) {
     return (
       <Fragment> 
         <Routes>
-          <Route exact path="/home" element={<App />}></Route>
-          <Route exact path="/register" element={<FRegiste />}></Route>
-          <Route exact path="/login" element={<FLogin />}></Route>
+          <Route  path="/home" element={<App />}></Route>
+          <Route  path="/register" element={<FRegiste />}></Route>
+          <Route  path="/login" element={<FLogin />}></Route>
         </Routes>
       </Fragment>
     );
@@ -37,7 +37,7 @@ function FRoot(props) {
 
 const mapDispatchToProps = (dispatch)=>({
     addUser: (user)=>dispatch(addUser(user)),
-    dele: (user)=>dispatch(deleUser())
+    dele: ()=>dispatch(deleUser())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(FRoot);

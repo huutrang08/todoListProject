@@ -17,6 +17,7 @@ function FWorkDatePane(props) {
   
    console.log(now.getMonth()+101)
    handleChangeDate(null,{name:'', value:st})
+   return ()=> link.WorkDateRef.off()
   }, []);
     function handleChangeDate(e,{name,value}){
        props.setDate(value)

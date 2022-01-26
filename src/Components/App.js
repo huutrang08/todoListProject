@@ -6,6 +6,8 @@ import { addUser, deleUser } from "../redux/user/userAction";
 import Spinner from "./UI/Spinner";
 import { Fragment } from "react";
 import FHeaderPane from "./HeaderPane/FHeaderPane";
+import FContentPane from "./ContentPane/FContentPane";
+import FEmtyContentMessage from "./ContentPane/FEmtyContentMessage";
 function App(props) {
   function handleSignout() {
     firebase
@@ -15,6 +17,7 @@ function App(props) {
         props.dele();
       });
   }
+  
   return (
     <Fragment>
       {props.state.loading ? <Spinner></Spinner> : (<Grid stretched style={{ background: "#eee" }} stackable>
@@ -23,9 +26,13 @@ function App(props) {
         </Grid.Column>
         <Grid.Column width='11'>
           <Grid>
-            <Grid.Column width='16'>
+            <Grid.Column width='16' >
                <FHeaderPane></FHeaderPane>
                <Divider></Divider>
+
+               { props.work.workDateData ? <FContentPane key={`${props.work.workDateData.id}${props.work.refresh}`}
+               workDateId={props.work.workDateData.id}
+               ></FContentPane> : <FEmtyContentMessage key={props.work.workDate} date={props.work.workDate}></FEmtyContentMessage>}
             </Grid.Column>
           </Grid>
         </Grid.Column>
@@ -36,6 +43,7 @@ function App(props) {
 }
 const mapStateToProps = (state) => ({
   state: state.user,
+  work: state.work
 });
 
 const mapDispatchToProps = (dispatch) => ({

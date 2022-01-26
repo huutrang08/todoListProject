@@ -15,6 +15,7 @@ function FHeaderPane(props) {
       })
     const handleSubmit = ()=>{
         if(props.state.workDateData){
+
             saveWorkData(props.state.workDateData.id,work,ref.WorkDateRef)
         }else{
             saveWorkDate()
